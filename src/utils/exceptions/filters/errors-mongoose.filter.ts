@@ -14,7 +14,7 @@ export class MongoExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
     // this variable status only use when have tipical exceptions in nestjs
     // const status = exception.getStatus();
-    let status;
+    let status = HttpStatus.INTERNAL_SERVER_ERROR;
 
     switch (exception.code) {
       case 11000:
@@ -25,6 +25,13 @@ export class MongoExceptionFilter implements ExceptionFilter {
           statusCode: status,
           message: `Data exist in db ${JSON.stringify(request.body)}`,
         });
+        break;
+      default:
+        response.status(status).json({
+          statusCode: status,
+          message: 'Internal Server Error',
+        });
+        break;
     }
   }
 }
