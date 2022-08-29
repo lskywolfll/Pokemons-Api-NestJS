@@ -36,3 +36,4 @@ lerna-debug.log*
 
 # Binary Data MongoDB
 mongo
+.env
